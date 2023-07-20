@@ -7,13 +7,11 @@ const server = fastify({
   logger: true,
 });
 
-const build = async () => {
-  await server.register(fastifyHealthcheck);
-  await server.register(autoLoad, {
-    dir: join(__dirname, "user"),
-    ignorePattern: /.*(test|spec|controller|service).(ts|js)/,
-  });
-};
+server.register(fastifyHealthcheck);
+server.register(autoLoad, {
+  dir: join(__dirname, "modules/user"),
+  ignorePattern: /.*(test|spec|.controller|.service).(ts|js)/,
+});
 
 const main = async () => {
   await server.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
@@ -24,5 +22,5 @@ const main = async () => {
     }
   });
 };
-build();
+
 main();
