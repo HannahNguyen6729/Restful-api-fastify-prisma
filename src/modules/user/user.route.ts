@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyPluginCallback } from "fastify";
-import registerUserHandler from "./user.controller";
+import { registerUserHandler, loginHandler } from "./user.controller";
 import { $ref } from "./user.schema";
 
 const userRoutes: FastifyPluginCallback = (
@@ -17,6 +17,18 @@ const userRoutes: FastifyPluginCallback = (
       },
     },
     handler: registerUserHandler,
+  });
+
+  fastify.route({
+    method: "POST",
+    url: "/api/users/login",
+    schema: {
+      body: $ref("loginSchema"),
+      response: {
+        201: $ref("loginResponseSchema"),
+      },
+    },
+    handler: loginHandler,
   });
 
   done();

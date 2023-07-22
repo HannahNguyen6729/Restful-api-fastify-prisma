@@ -11,7 +11,10 @@ export const hashPassword = (password: string) => {
   return { hash, salt };
 };
 
-export const verifyPassword = (candidatePassword: string, hash: string) => {
+export const verifyPassword = (
+  myPlaintextPassword: string,
+  hashPassword: string
+) => {
   //check and compare the password and the encoded password
-  bcrypt.compareSync(candidatePassword, hash); // true
+  return bcrypt.compareSync(myPlaintextPassword, hashPassword); // true
 };

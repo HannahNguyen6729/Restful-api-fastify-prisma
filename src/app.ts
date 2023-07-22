@@ -1,14 +1,30 @@
 import { join } from "path";
-import fastify from "fastify";
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import fastifyHealthcheck from "fastify-healthcheck";
 import autoLoad from "@fastify/autoload";
-import { userSchemas } from "./modules//user/user.schema";
+import { userSchemas } from "./modules/user/user.schema";
+import fjwt from "@fastify/jwt";
 
 const server = fastify({
   logger: true,
 });
 
 const main = async () => {
+  await server.register(fjwt, {
+    secret: "randomsecretpassword",
+  });
+
+  await server.decorate(
+    "authenticate",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        await request.jwtVerify();
+      } catch (err) {
+        return reply.send(err);
+      }
+    }
+  );
+
   await server.register(fastifyHealthcheck);
 
   for (const schema of userSchemas) {
