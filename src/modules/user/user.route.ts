@@ -1,5 +1,9 @@
 import { FastifyInstance, FastifyPluginCallback } from "fastify";
-import { registerUserHandler, loginHandler } from "./user.controller";
+import {
+  registerUserHandler,
+  loginHandler,
+  getUsersHandler,
+} from "./user.controller";
 import { $ref } from "./user.schema";
 
 const userRoutes: FastifyPluginCallback = (
@@ -29,6 +33,12 @@ const userRoutes: FastifyPluginCallback = (
       },
     },
     handler: loginHandler,
+  });
+
+  fastify.route({
+    method: "GET",
+    url: "/api/users",
+    handler: getUsersHandler,
   });
 
   done();

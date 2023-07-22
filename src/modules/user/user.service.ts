@@ -21,3 +21,14 @@ export const findUserByEmail = async (input: LoginInput) => {
   });
   return foundUser;
 };
+
+export const getUsers = async () => {
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      email: true,
+      password: true,
+    },
+  });
+  return users;
+};
