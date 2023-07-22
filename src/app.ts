@@ -9,6 +9,12 @@ const server = fastify({
   logger: true,
 });
 
+declare module "fastify" {
+  export interface FastifyInstance {
+    authenticate: any;
+  }
+}
+
 const main = async () => {
   await server.register(fjwt, {
     secret: "randomsecretpassword",

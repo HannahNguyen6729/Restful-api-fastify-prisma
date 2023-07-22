@@ -38,6 +38,7 @@ const userRoutes: FastifyPluginCallback = (
   fastify.route({
     method: "GET",
     url: "/api/users",
+    preHandler: [fastify.authenticate],
     handler: getUsersHandler,
   });
 
