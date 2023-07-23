@@ -16,6 +16,16 @@ declare module "fastify" {
   }
 }
 
+declare module "@fastify/jwt" {
+  export interface FastifyJWT {
+    user: {
+      id: number;
+      name: string;
+      email: string;
+    };
+  }
+}
+
 const main = async () => {
   await server.register(fjwt, {
     secret: "randomsecretpassword",
@@ -33,8 +43,8 @@ const main = async () => {
   );
 
   await server.register(fastifyHealthcheck);
-  const x = [...userSchemas, ...productSchemas];
-  for (const schema of x) {
+
+  for (const schema of [...userSchemas, ...productSchemas]) {
     await server.addSchema(schema);
   }
 

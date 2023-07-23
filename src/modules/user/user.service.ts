@@ -1,7 +1,6 @@
 import prisma from "../../utils/prismaFile";
-import fastify from "fastify";
 import { CreateUserInput, LoginInput } from "./user.schema";
-import { hashPassword, verifyPassword } from "../../utils/hash";
+import { hashPassword } from "../../utils/hash";
 
 export const createUser = async (input: CreateUserInput) => {
   const { password, ...rest } = input;

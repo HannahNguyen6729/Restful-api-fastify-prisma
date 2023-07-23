@@ -3,13 +3,13 @@ import { buildJsonSchemas } from "fastify-zod";
 
 const productSchema = z.object({
   title: z.string(),
-  price: z.string(),
+  price: z.number(),
   content: z.string().optional(),
 });
 
 const productResponseSchema = z.object({
   title: z.string(),
-  price: z.string(),
+  price: z.number(),
   content: z.string().optional(),
   id: z.number(),
   createAt: z.string(),

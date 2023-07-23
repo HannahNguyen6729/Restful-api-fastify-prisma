@@ -3,10 +3,6 @@ import { createUser, findUserByEmail, getUsers } from "./user.service";
 import { CreateUserInput, LoginInput } from "./user.schema";
 import { verifyPassword } from "../../utils/hash";
 
-const server = fastify({
-  logger: true,
-});
-
 export const registerUserHandler = async (
   request: FastifyRequest<{ Body: CreateUserInput }>,
   reply: FastifyReply
