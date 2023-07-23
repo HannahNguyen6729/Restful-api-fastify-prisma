@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyPluginCallback } from "fastify";
-import { createProductHandler } from "./product.controller";
+import { createProductHandler, getProductsHandler } from "./product.controller";
 import { $ref } from "./product.schema";
 
 const productRoutes: FastifyPluginCallback = (
@@ -18,6 +18,17 @@ const productRoutes: FastifyPluginCallback = (
       },
     },
     handler: createProductHandler,
+  });
+
+  fastify.route({
+    method: "GET",
+    url: "/api/products",
+    schema: {
+      response: {
+        201: $ref("productsResponseSchema"),
+      },
+    },
+    handler: getProductsHandler,
   });
 
   done();

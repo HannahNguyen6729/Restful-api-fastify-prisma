@@ -9,3 +9,23 @@ export const createProduct = async (
   });
   return newProduct;
 };
+
+export const getProducts = async () => {
+  const products = await prisma.product.findMany({
+    select: {
+      content: true,
+      title: true,
+      price: true,
+      id: true,
+      createAt: true,
+      updateAt: true,
+      owner: {
+        select: {
+          name: true,
+          id: true,
+        },
+      },
+    },
+  });
+  return products;
+};
