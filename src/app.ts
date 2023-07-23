@@ -8,6 +8,7 @@ import fjwt from "@fastify/jwt";
 import fswagger from "@fastify/swagger";
 import swaggerUI from "@fastify/swagger-ui";
 import { version } from "../package.json";
+import helmet from "@fastify/helmet";
 
 const server = fastify({
   logger: true,
@@ -51,6 +52,8 @@ const main = async () => {
     await server.addSchema(schema);
   }
 
+  await server.register(helmet);
+
   await server.register(fswagger, {
     swagger: {
       info: {
@@ -62,7 +65,7 @@ const main = async () => {
         url: "https://swagger.io",
         description: "Find more info here",
       },
-      host: `http://localhost:3000/documentation/static/index.html`,
+      host: `localhost:3000`,
       schemes: ["http"],
       consumes: ["application/json"],
       produces: ["application/json"],
